@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helal — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ebe3d2;--card:#f5efe1;--card-2:#faf5e8;--ink:#1a1612;--ink-2:#4a4238;--muted:#8a7f6f;--rule:#d4cab5;--accent:#c0392b;--accent-2:#6b8e4e;--accent-3:#d4a017}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Fraunces',Georgia,serif;-webkit-font-smoothing:antialiased;min-height:100vh;padding:18px}
+.grid{display:grid;grid-template-columns:280px 1fr 320px;gap:14px;max-width:1400px;margin:0 auto}
+@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}.greeting,.span-2{grid-column:span 2}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.greeting,.span-2,.span-3{grid-column:span 1!important}}
+.card{background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--rule)}
+.span-2{grid-column:span 2}.span-3{grid-column:span 3}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.head .num{color:var(--ink-2);font-weight:500}
+.greeting{background:var(--card-2)}
+.greeting h1{font-family:'Fraunces',serif;font-weight:400;font-size:38px;letter-spacing:-0.02em;line-height:1.1;margin-bottom:6px}
+.greeting h1 em{font-style:italic;font-weight:500}
+.greeting .date-line{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.gcontent{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.clocks{display:flex;gap:24px}
+.clock .time{font-family:'Fraunces',serif;font-size:30px;font-weight:400;letter-spacing:-0.02em;line-height:1;white-space:nowrap}
+.clock .ampm{font-size:13px;color:var(--muted);margin-left:4px;font-style:italic}
+.clock .tz{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.operator .name{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:2px}
+.operator .name em{font-style:italic}
+.operator .role{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.row{display:grid;grid-template-columns:32px 1fr;gap:10px;padding:10px 8px;border-bottom:1px solid var(--rule);align-items:center;margin:0 -8px}
+.row.no-avatar{grid-template-columns:1fr}
+.row:last-child{border-bottom:none}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--card);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500}
+.avatar.warm{background:var(--accent-2)}.avatar.hot{background:var(--accent)}.avatar.applied{background:var(--ink-2)}.avatar.cold{background:var(--muted)}
+.rtitle{font-family:'Fraunces',serif;font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:6px}
+.rmeta{font-size:11.5px;color:var(--muted);line-height:1.3;margin-top:1px}
+.badge{display:inline-block;padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;background:var(--accent);color:var(--card);font-weight:500}
+.badge.warm{background:var(--accent-2)}.badge.applied{background:var(--ink-2)}.badge.cold{background:var(--muted)}
+.task{display:flex;align-items:center;gap:10px;padding:8px 0}
+.check{width:16px;height:16px;border:1.5px solid var(--ink-2);border-radius:4px;flex-shrink:0}
+.ttitle{font-family:'Fraunces',serif;font-size:13.5px;font-weight:500}
+.tmeta{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.05em;color:var(--muted);text-transform:uppercase;margin-top:1px}
+.tmeta.urgent{color:var(--accent)}
+.note{padding:10px 8px;border-bottom:1px solid var(--rule);margin:0 -8px}
+.note:last-child{border-bottom:none}
+.nbody{font-family:'Fraunces',serif;font-size:13px;line-height:1.5}
+.nstamp{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.empty{padding:16px 0;text-align:center;font-style:italic;color:var(--muted);font-size:13px}
+.footer{text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:24px}
+</style></head><body>
+<div class="grid">
+<div class="card operator"><div class="head"><span class="num">01 // OPERATOR</span><span>ACTIVE</span></div><div class="name">Helal <em>Almheiri</em></div><div class="role">ERM · Columbia SPS · NYC</div></div>
+<div class="card greeting span-2"><div class="head"><span class="num">02 // SESSION</span><span>DAY 120 OF 365</span></div><div class="gcontent"><div><h1>Good <em>evening</em>, Helal.</h1><div class="date-line">THURSDAY, APRIL 30, 2026</div></div><div class="clocks"><div class="clock"><div class="time" id="nyc"></div><div class="tz">NYC · EDT</div></div><div class="clock"><div class="time" id="uae"></div><div class="tz">UAE · GST</div></div></div></div></div>
+<div class="card span-2"><div class="head"><span class="num">03 // CALENDAR</span><span>2 upcoming</span></div><div class="row no-avatar"><div class="rbody"><div class="rtitle">Columbia SPS graduation</div><div class="rmeta">May 15 · Master&#x27;s in ERM</div></div></div><div class="row no-avatar"><div class="rbody"><div class="rtitle">CFA Level I exam</div><div class="rmeta">Aug 15 · August sitting</div></div></div></div>
+<div class="card"><div class="head"><span class="num">04 // JOB PIPELINE</span><span>4 active</span></div><div class="row"><div class="avatar hot">RD</div><div class="rbody"><div class="rtitle">Rothschild Dubai <span class="badge hot">Hot</span></div><div class="rmeta">Warm intro to Ahmed</div></div></div><div class="row"><div class="avatar warm">HD</div><div class="rbody"><div class="rtitle">HSBC Dubai <span class="badge warm">Warm</span></div><div class="rmeta">Contact: Fatema (SVP)</div></div></div><div class="row"><div class="avatar applied">LA</div><div class="rbody"><div class="rtitle">Lazard Abu Dhabi <span class="badge applied">Applied</span></div><div class="rmeta">M&amp;A Analyst — follow up in 2wks</div></div></div><div class="row"><div class="avatar applied">JD</div><div class="rbody"><div class="rtitle">JPMorgan Dubai <span class="badge applied">Applied</span></div><div class="rmeta">Off-cycle Internship</div></div></div></div>
+<div class="card span-3"><div class="head"><span class="num">05 // BUSINESS TO DO</span><span>0 open</span></div><div class="empty">All clear.</div></div>
+<div class="card span-3"><div class="head"><span class="num">06 // PERSONAL TO DO</span><span>0 open</span></div><div class="empty">All clear.</div></div>
+<div class="card span-3"><div class="head"><span class="num">07 // NOTES</span><span>0 captured</span></div><div class="empty">No notes.</div></div>
+</div>
+<div class="footer">Last updated · Apr 30 · 6:10 PM</div>
+<script>
+function tick(){const now=new Date();const fmt=tz=>{const t=now.toLocaleTimeString('en-US',{timeZone:tz,hour:'numeric',minute:'2-digit',hour12:true});const [time,ap]=t.split(' ');return `${time}<span class="ampm">${ap}</span>`;};document.getElementById('nyc').innerHTML=fmt('America/New_York');document.getElementById('uae').innerHTML=fmt('Asia/Dubai');}
+tick();setInterval(tick,30000);
+</script>
+</body></html>
